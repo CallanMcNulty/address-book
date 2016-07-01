@@ -39,6 +39,10 @@ namespace AddressBook.Objects
     {
       _phoneNumber = phoneNumber;
     }
+    public static List<Contact> GetAllContacts()
+    {
+      return _allContacts;
+    }
     public static Contact GetContactByName(string n)
     {
       foreach (Contact c in _allContacts)
@@ -49,6 +53,10 @@ namespace AddressBook.Objects
         }
       }
       return _allContacts[0];
+    }
+    public static void DeleteAllContacts()
+    {
+      _allContacts = new List<Contact> {};
     }
   }
 }
