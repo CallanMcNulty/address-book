@@ -13,6 +13,7 @@ This web app will create an address book which a user can use to view, add, or r
 * Clone repository from GitHub
 * To start the server:
   * Open terminal and navigate to cloned directory
+  * Enter the command: dnu restore
   * Enter the command: dnx kestrel
 * To start the client:
   * Open a web browser and navigate to http://localhost:5004/

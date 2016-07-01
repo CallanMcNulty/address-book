@@ -14,7 +14,6 @@ namespace AddressBook
       };
       Get["/view"] = _ => {
         List<Contact> cList = Contact.GetAllContacts();
-        foreach (Contact c in cList){Console.WriteLine(c.GetName());}//TODO-Remove
         return View["view.cshtml",cList];
       };
       Get["/add"] = _ => {
@@ -22,16 +21,15 @@ namespace AddressBook
       };
       Post["/contact_created"] = _ => {
         Contact c = new Contact(Request.Form["new-name"],Request.Form["new-address"],Request.Form["new-number"]);
-        Console.WriteLine(c.GetName());//TODO-Remove
         return View["contact_created.cshtml", c];
       };
       Post["/contacts_deleted"] = _ => {
         Contact.DeleteAllContacts();
-        return View["view.cshtml"];
+        List<Contact> cList = Contact.GetAllContacts();
+        return View["view.cshtml", cList];
       };
       Get["/view/{name}"] = parameters => {
         Contact c = Contact.GetContactByName(parameters.name);
-        Console.WriteLine(c.GetName());//TODO-Remove
         return View["contact.cshtml", c];
       };
     }
