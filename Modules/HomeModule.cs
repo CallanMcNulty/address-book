@@ -1,4 +1,5 @@
 using Nancy;
+using System;
 using System.Collections.Generic;
 using AddressBook.Objects;
 
@@ -9,21 +10,29 @@ namespace AddressBook
     public HomeModule()
     {
       Get["/"] = _ => {
-        return View["index.html"];
+        return View["index.cshtml"];
       };
       Get["/view"] = _ => {
-        return View["view.html"];
+        List<Contact> cList = Contact.GetAllContacts();
+        foreach (Contact c in cList){Console.WriteLine(c.GetName());}//TODO-Remove
+        return View["view.cshtml",cList];
       };
       Get["/add"] = _ => {
-        return View["add.html"];
+        return View["add.cshtml"];
       };
       Post["/contact_created"] = _ => {
         Contact c = new Contact(Request.Form["new-name"],Request.Form["new-address"],Request.Form["new-number"]);
-        return View["contact_created.html"];
+        Console.WriteLine(c.GetName());//TODO-Remove
+        return View["contact_created.cshtml", c];
       };
       Post["/contacts_deleted"] = _ => {
         Contact.DeleteAllContacts();
-        return View["view.html"];
+        return View["view.cshtml"];
+      };
+      Get["/view/{name}"] = parameters => {
+        Contact c = Contact.GetContactByName(parameters.name);
+        Console.WriteLine(c.GetName());//TODO-Remove
+        return View["contact.cshtml", c];
       };
     }
   }
